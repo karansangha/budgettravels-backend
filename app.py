@@ -1,6 +1,6 @@
 from flask import Flask
 from datetime import datetime
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
