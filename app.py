@@ -1,6 +1,10 @@
 from flask import Flask
 from datetime import datetime
+from flask.ext.sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+db = SQLAlchemy(app)
 
 @app.route('/')
 def homepage():
@@ -15,4 +19,3 @@ def homepage():
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
-
