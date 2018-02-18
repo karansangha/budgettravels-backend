@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
 import requests
 from django.core import serializers
-import random
+import random, json
 
 from .models import Greeting
 from .models import Destinations
@@ -38,26 +39,37 @@ def create_schedule(request):
 
     data = {}
     visited_ids = []
-    price_list = []
     total = 0
     count_loop = 0
     total_loops = 0
+    i = 0
 
-    for i in range(0, days):
-        print (i)
-        key = 'Day ' + str(i)
+    while i < days:
+        count_loop += 1
+        print ("i = " + str(i))
+        key = 'Day ' + str(i + 1)
         random_attractions_ids = random.sample(range(1, len(attractions_list)), random.randrange(1, 5))
         if len(list(set(random_attractions_ids).intersection(visited_ids))) > 0:
             continue
         else:
-            day_list = [attractions_list[i] for i in random_attractions_ids]
-            print(day_list)
+            day_list = []
+            sum_day = 0
+            for j in random_attractions_ids:
+                sum_day += attractions_list[j].price
+                day_list.append(attractions_list[j])
 
-    print(city_id, str(budget), str(days))
+            if (0.99 * budget_per_day) <= sum_day <= budget_per_day:
+                total_loops += count_loop
+                count_loop = 0
+                prop = serializers.serialize("json", day_list)
+                data[key] = prop
+                data[key + "_total"] = sum_day
+                i += 1
+                total += sum_day
+                print(data)
 
-    attraction_detail = Destinations.objects.filter(id=1)
-    data = serializers.serialize("json", attraction_detail)
-    return HttpResponse(data, content_type="application/json")
+        data["total"] = total
+    return JsonResponse(data)
 
 
 def db(request):
