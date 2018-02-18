@@ -11,6 +11,7 @@ gunicorn = "*"
 django-heroku = "*"
 requests = "*"
 django-import-export = "*"
+django-cors-middleware = "*"
 
 
 [requires]
