@@ -7,10 +7,10 @@ class Greeting(models.Model):
 
 
 class Destinations(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=500)
     price = models.FloatField()
-    photoURL = models.CharField(max_length=300)
-    description = models.CharField(max_length=1000)
+    photoURL = models.CharField(max_length=600)
+    description = models.CharField(max_length=2000)
     city_id = models.IntegerField()
 
     def get_instance(self, instance_loader, row):
