@@ -13,6 +13,8 @@ class Destinations(models.Model):
     photoURL = models.CharField(max_length=600)
     description = models.CharField(max_length=2000)
     city_id = models.IntegerField()
+    indoor_outdoor = models.CharField(max_length=100)
+    day_night = models.CharField(max_length=100)
 
     def get_instance(self, instance_loader, row):
         # Returning False prevents us from looking in the
