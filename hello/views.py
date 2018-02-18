@@ -14,9 +14,9 @@ def index(request):
     return HttpResponse('<pre>' + r.text + '</pre>')
 
 
-def list_attractions(request):
-    student_list = Destinations.objects.all()
-    data = serializers.serialize("json", student_list)
+def list_attractions(request, city_id=1):
+    attractions_list = Destinations.objects.filter(city_id=city_id)
+    data = serializers.serialize("json", attractions_list)
     return HttpResponse(data, content_type="application/json")
 
 
