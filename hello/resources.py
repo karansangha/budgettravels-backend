@@ -5,4 +5,3 @@ class DestinationsResource(resources.ModelResource):
     class Meta:
         model = Destinations
         fields = ('title', 'price', 'photoURL', 'description', 'city_id')
-

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Greeting(models.Model):
     when = models.DateTimeField('date created', auto_now_add=True)
@@ -17,6 +18,7 @@ class Destinations(models.Model):
         # Returning False prevents us from looking in the
         # database for rows that already exist
         return False
+
 
 class Time(models.Model):
     startTime = models.DateTimeField()
