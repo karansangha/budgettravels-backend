@@ -20,6 +20,12 @@ def list_attractions(request, city_id=1):
     return HttpResponse(data, content_type="application/json")
 
 
+def attraction(request, attraction_id):
+    attraction_detail = Destinations.objects.filter(id=attraction_id)
+    data = serializers.serialize("json", attraction_detail)
+    return HttpResponse(data, content_type="application/json")
+
+
 def db(request):
     greeting = Greeting()
     greeting.save()
