@@ -49,7 +49,7 @@ def create_schedule(request):
     while i < days:
         count_loop += 1
         key = 'Day ' + str(i + 1)
-        random_attractions_ids = []
+        # random_attractions_ids = []
         if indoor_outdoor == "None" and day_night == "None" or count_loop >= 50:
             random_attractions_ids = random.sample(range(1, len(attractions_list)), random.randrange(1, 5))
         else:
@@ -73,7 +73,7 @@ def create_schedule(request):
             for j in random_attractions_ids:
                 sum_day += attractions_list[j].price
                 day_list.append(attractions_list[j])
-            if (0.99 * budget_per_day) <= sum_day <= budget_per_day:
+            if (0.90 * budget_per_day) <= sum_day <= budget_per_day:
                 total_loops += count_loop
                 count_loop = 0
                 prop = serializers.serialize("json", day_list)
