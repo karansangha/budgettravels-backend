@@ -13,5 +13,6 @@ import hello.views
 urlpatterns = [
     url(r'^$', hello.views.index, name='index'),
     url(r'^db', hello.views.db, name='db'),
+    url(r'^list_attractions/', hello.views.list_attractions, name='list_attractions'),
     path('admin/', admin.site.urls),
 ]

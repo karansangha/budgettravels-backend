@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import requests
+from django.core import serializers
 
 from .models import Greeting
+from .models import Destinations
+
 
 # Create your views here.
 def index(request):
@@ -11,9 +14,13 @@ def index(request):
     return HttpResponse('<pre>' + r.text + '</pre>')
 
 
+def list_attractions(request):
+    student_list = Destinations.objects.all()
+    data = serializers.serialize("json", student_list)
+    return HttpResponse(data, content_type="application/json")
+
 
 def db(request):
-
     greeting = Greeting()
     greeting.save()
 
@@ -21,7 +28,9 @@ def db(request):
 
     return render(request, 'db.html', {'greetings': greetings})
 
+
 from tablib import Dataset
+
 
 def simple_upload(request):
     if request.method == 'POST':
