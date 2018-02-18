@@ -32,6 +32,10 @@ def create_schedule(request):
     city_id = request.GET.get('city_id')
     budget = float(request.GET.get('budget'))
     days = int(request.GET.get('days'))
+    indoor_outdoor = request.GET.get('indoor_outdoor')
+    day_night = request.GET.get('day_night')
+    print(indoor_outdoor, day_night)
+
     budget_per_day = budget / days
     attractions_list = Destinations.objects.filter(city_id=city_id)
 
@@ -45,9 +49,24 @@ def create_schedule(request):
     while i < days:
         count_loop += 1
         key = 'Day ' + str(i + 1)
-        random_attractions_ids = random.sample(range(1, len(attractions_list)), random.randrange(1, 5))
+        random_attractions_ids = []
+        if indoor_outdoor == "None" and day_night == "None" or count_loop >= 50:
+            random_attractions_ids = random.sample(range(1, len(attractions_list)), random.randrange(1, 5))
+        else:
+            if day_night != "None":
+                random_attractions_ids = random.sample(
+                    range(1, len(Destinations.objects.filter(city_id=city_id).filter(day_night=day_night))),
+                    random.randrange(1, len(Destinations.objects.filter(city_id=city_id).filter(day_night=day_night))))
+
+            if indoor_outdoor != "None":
+                random_attractions_ids = random.sample(
+                    range(1, len(Destinations.objects.filter(city_id=city_id).filter(indoor_outdoor=indoor_outdoor))),
+                    random.randrange(1, len(
+                        Destinations.objects.filter(city_id=city_id).filter(indoor_outdoor=indoor_outdoor))))
+
         if len(list(set(random_attractions_ids).intersection(visited_ids))) > 0:
             continue
+
         else:
             day_list = []
             sum_day = 0
