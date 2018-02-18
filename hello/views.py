@@ -20,10 +20,14 @@ def list_attractions(request, city_id=1):
     return HttpResponse(data, content_type="application/json")
 
 
-def attraction(request, attraction_id):
+def attraction(request, attraction_id=1):
     attraction_detail = Destinations.objects.filter(id=attraction_id)
     data = serializers.serialize("json", attraction_detail)
     return HttpResponse(data, content_type="application/json")
+
+
+def create_schedule(request):
+    pass
 
 
 def db(request):
