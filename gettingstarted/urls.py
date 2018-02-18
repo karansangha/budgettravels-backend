@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^list_attractions/(?P<city_id>\w{1,50})', hello.views.list_attractions, name='list_attractions'),
     url(r'^attraction/(?P<attraction_id>\w{1,50})/$', hello.views.attraction, name='attraction'),
     url(r'^attraction/(?P<attraction_id>\w{1,50})', hello.views.attraction, name='attraction'),
+    url(r'^create_schedule/$', hello.views.create_schedule, name='attraction'),
     path('admin/', admin.site.urls),
 ]
