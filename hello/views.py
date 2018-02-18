@@ -32,9 +32,7 @@ def create_schedule(request):
     city_id = request.GET.get('city_id')
     budget = float(request.GET.get('budget'))
     days = int(request.GET.get('days'))
-
     budget_per_day = budget / days
-
     attractions_list = Destinations.objects.filter(city_id=city_id)
 
     data = {}
@@ -46,7 +44,6 @@ def create_schedule(request):
 
     while i < days:
         count_loop += 1
-        print ("i = " + str(i))
         key = 'Day ' + str(i + 1)
         random_attractions_ids = random.sample(range(1, len(attractions_list)), random.randrange(1, 5))
         if len(list(set(random_attractions_ids).intersection(visited_ids))) > 0:
@@ -57,7 +54,6 @@ def create_schedule(request):
             for j in random_attractions_ids:
                 sum_day += attractions_list[j].price
                 day_list.append(attractions_list[j])
-
             if (0.99 * budget_per_day) <= sum_day <= budget_per_day:
                 total_loops += count_loop
                 count_loop = 0
@@ -66,9 +62,9 @@ def create_schedule(request):
                 data[key + "_total"] = sum_day
                 i += 1
                 total += sum_day
-                print(data)
-
         data["total"] = total
+
+    print ("Total loops = " + total_loops)
     return JsonResponse(data)
 
 
