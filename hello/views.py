@@ -64,7 +64,7 @@ def create_schedule(request):
                 total += sum_day
         data["total"] = total
 
-    print ("Total loops = " + total_loops)
+    print ("Total loops = " + str(total_loops))
     return JsonResponse(data)
 
 
