@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^$', hello.views.index, name='index'),
     url(r'^db', hello.views.db, name='db'),
     url(r'^list_attractions/(?P<city_id>\w{1,50})/$', hello.views.list_attractions, name='list_attractions'),
+    url(r'^list_attractions/(?P<city_id>\w{1,50})', hello.views.list_attractions, name='list_attractions'),
     url(r'^attraction/(?P<attraction_id>\w{1,50})/$', hello.views.attraction, name='attraction'),
     url(r'^attraction/(?P<attraction_id>\w{1,50})', hello.views.attraction, name='attraction'),
     path('admin/', admin.site.urls),
